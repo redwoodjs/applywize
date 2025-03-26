@@ -8,7 +8,6 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
   output          = "../node_modules/.prisma/client"
-
 }
 
 datasource db {
@@ -16,23 +15,70 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id          String      @id @default(uuid()) // User ID (UUID-based)
-  username    String      @unique
-  createdAt   DateTime    @default(now())
+model Application {
+  id             String            @id @default(uuid())
+  userId         String
+  user           User              @relation(fields: [userId], references: [id])
+  status         ApplicationStatus @relation(fields: [statusId], references: [id])
+  statusId       Int               @default(1)
+  salaryMin      String?
+  salaryMax      String?
+  dateApplied    DateTime?
+  jobTitle       String?
+  jobDescription String?
+  postingUrl     String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime?         @updatedAt
+  archived       Boolean           @default(false)
+  companyId      String
+  company        Company           @relation(fields: [companyId], references: [id])
+}
 
-  credentials Credential[] // Relationship: One user can have many credentials
+model ApplicationStatus {
+  id           Int           @id @default(autoincrement())
+  status       String
+  applications Application[]
+}
+
+model Company {
+  id           String        @id @default(uuid())
+  name         String
+  applications Application[]
+  contacts     Contact[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
+}
+
+model Contact {
+  id        String    @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String?
+  role      String?
+  companyId String?
+  company   Company?  @relation(fields: [companyId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Credential {
-  id            String   @id @default(uuid()) // Internal DB ID
-  userId        String   @unique // Each user has one discoverable credential
-  user          User     @relation(fields: [userId], references: [id])
-  createdAt     DateTime @default(now())
-  credentialId  String   @unique // WebAuthn credential identifier
-  publicKey     Bytes
-  counter       Int      @default(0)
-  
+  id           String   @id @default(uuid()) // Internal DB ID
+  userId       String   @unique // Each user has one discoverable credential
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  credentialId String   @unique // WebAuthn credential identifier
+  publicKey    Bytes
+  counter      Int      @default(0)
+
   @@index([credentialId])
   @@index([userId])
+}
+
+model User {
+  id           String        @id @default(uuid())
+  username     String        @unique
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
+  applications Application[]
+  credentials  Credential[]
 }
