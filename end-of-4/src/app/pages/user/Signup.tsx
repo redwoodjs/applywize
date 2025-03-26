@@ -1,37 +1,43 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { startAuthentication } from "@simplewebauthn/browser";
+import { startRegistration } from "@simplewebauthn/browser";
 import {
-  finishPasskeyLogin,
-  startPasskeyLogin
+  finishPasskeyRegistration,
+  startPasskeyRegistration,
 } from "./functions";
 import { useTurnstile } from "@redwoodjs/sdk/turnstile";
 import { Button } from "@/app/components/ui/button";
 
 // >>> Replace this with your own Cloudflare Turnstile site key
-const TURNSTILE_SITE_KEY = "0x4AAAAAABCpUSmzOt7TgetS";
+const TURNSTILE_SITE_KEY = "0x4AAAAAABBM92GLK3VnyFAr";
 
-export function Login() {
+export function Signup() {
   const [username, setUsername] = useState("");
   const [result, setResult] = useState("");
   const [isPending, startTransition] = useTransition();
   const turnstile = useTurnstile(TURNSTILE_SITE_KEY);
 
-  const passkeyLogin = async () => {
-    const options = await startPasskeyLogin();
-    const login = await startAuthentication({ optionsJSON: options });
-    const success = await finishPasskeyLogin(login);
+  const passkeyRegister = async () => {
+    const options = await startPasskeyRegistration(username);
+    const registration = await startRegistration({ optionsJSON: options });
+    const turnstileToken = await turnstile.challenge();
+
+    const success = await finishPasskeyRegistration(
+      username,
+      registration,
+      turnstileToken,
+    );
 
     if (!success) {
-      setResult("Login failed");
+      setResult("Registration failed");
     } else {
-      setResult("Login successful!");
+      setResult("Registration successful!");
     }
   };
 
-  const handlePerformPasskeyLogin = () => {
-    startTransition(() => void passkeyLogin());
+  const handlePerformPasskeyRegister = () => {
+    startTransition(() => void passkeyRegister());
   };
 
   return (
@@ -44,8 +50,8 @@ export function Login() {
         onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
       />
-      <Button onClick={handlePerformPasskeyLogin} disabled={isPending}>
-        {isPending ? <>...</> : "Login with passkey"}
+      <Button onClick={handlePerformPasskeyRegister} disabled={isPending}>
+        {isPending ? <>...</> : "Register with passkey"}
       </Button>
       {result && <div>{result}</div>}
     </main>
