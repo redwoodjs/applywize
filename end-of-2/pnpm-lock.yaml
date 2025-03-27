@@ -30,8 +30,8 @@ importers:
         specifier: ^1.1.2
         version: 1.1.2(@types/react@18.3.20)(react@19.0.0-rc-f2df5694-20240916)
       '@redwoodjs/sdk':
-        specifier: 0.0.29
-        version: 0.0.29(@types/node@22.13.13)(kysely@0.27.6)(react-server-dom-webpack@19.0.0-rc-f2df5694-20240916(react-dom@19.0.0-rc-f2df5694-20240916(react@19.0.0-rc-f2df5694-20240916))(react@19.0.0-rc-f2df5694-20240916)(webpack@5.98.0(esbuild@0.25.1)))(rollup@4.37.0)(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(workerd@1.20250321.0)
+        specifier: 0.0.32
+        version: 0.0.32(@types/node@22.13.13)(kysely@0.27.6)(react-server-dom-webpack@19.0.0-rc-f2df5694-20240916(react-dom@19.0.0-rc-f2df5694-20240916(react@19.0.0-rc-f2df5694-20240916))(react@19.0.0-rc-f2df5694-20240916)(webpack@5.98.0(esbuild@0.25.1)))(rollup@4.37.0)(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(workerd@1.20250321.0)
       '@simplewebauthn/browser':
         specifier: ^13.1.0
         version: 13.1.0
@@ -1142,8 +1142,8 @@ packages:
   '@radix-ui/rect@1.1.0':
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
 
-  '@redwoodjs/sdk@0.0.29':
-    resolution: {integrity: sha512-dgncd0fFshGjN4peZ/SH+gSpSGwVKxt3NwuY/einzhFIxP3zQl9PqORqKpR8/tq+4TeFIhidhF9qZN1Ga1J6Cg==}
+  '@redwoodjs/sdk@0.0.32':
+    resolution: {integrity: sha512-yGkLDHyGtBcSyUsBl2ED43I3+ttyYpsCPgy6vqLSR9+YRb7egW4+ush64oKmUvKPL88aKKyldq/BZQOeJwhvJw==}
     hasBin: true
     peerDependencies:
       react-server-dom-webpack: 19.0.0-rc-f2df5694-20240916
@@ -4336,7 +4336,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@redwoodjs/sdk@0.0.29(@types/node@22.13.13)(kysely@0.27.6)(react-server-dom-webpack@19.0.0-rc-f2df5694-20240916(react-dom@19.0.0-rc-f2df5694-20240916(react@19.0.0-rc-f2df5694-20240916))(react@19.0.0-rc-f2df5694-20240916)(webpack@5.98.0(esbuild@0.25.1)))(rollup@4.37.0)(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(workerd@1.20250321.0)':
+  '@redwoodjs/sdk@0.0.32(@types/node@22.13.13)(kysely@0.27.6)(react-server-dom-webpack@19.0.0-rc-f2df5694-20240916(react-dom@19.0.0-rc-f2df5694-20240916(react@19.0.0-rc-f2df5694-20240916))(react@19.0.0-rc-f2df5694-20240916)(webpack@5.98.0(esbuild@0.25.1)))(rollup@4.37.0)(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(workerd@1.20250321.0)':
     dependencies:
       '@cloudflare/vite-plugin': 0.1.16(vite@6.2.3(@types/node@22.13.13)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.0))(workerd@1.20250321.0)(wrangler@4.4.1(@cloudflare/workers-types@4.20250321.0))
       '@cloudflare/workers-types': 4.20250321.0

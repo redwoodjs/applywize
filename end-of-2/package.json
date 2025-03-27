@@ -6,7 +6,7 @@
   "type": "module",
   "keywords": [],
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "postinstall": "pnpm dev:init",
@@ -32,7 +32,7 @@
     "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
-    "@redwoodjs/sdk": "0.0.29",
+    "@redwoodjs/sdk": "0.0.32",
     "@simplewebauthn/browser": "^13.1.0",
     "@simplewebauthn/server": "^13.1.1",
     "@tailwindcss/vite": "^4.0.17",
