@@ -188,31 +188,6 @@ If you encounter any issues while working through this tutorial:
 - Visit the [RedwoodSDK Discussion](https://community.redwoodjs.com)
 - Join the [RedwoodJS Discord](https://discord.gg/redwoodjs)
 
-## Features Overview
-
-### User Management
-
-- Create an account and sign up
-- Log in securely
-- Private data access
-
-### Job Applications
-
-- View all applications
-- Add and track new job applications
-- Update application status
-- Edit and delete applications
-
-### Contact Management
-
-- Add contacts for each application
-- Store and manage contact details
-
-### User Interface
-
-- Clean, responsive design with TailwindCSS
-- Interactive components using ShadCN UI
-
 <!-- ## Additional Resources
 
 After completing the main tutorial, check out these additional guides to enhance your application:
