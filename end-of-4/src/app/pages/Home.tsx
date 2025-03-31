@@ -1,6 +1,6 @@
 import { Context } from "@/worker";
 
-export function Home({ ctx }: { ctx: Context }) {
+export default function Home({ ctx }: { ctx: Context }) {
   return (
     <div>
       <p>

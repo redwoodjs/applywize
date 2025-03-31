@@ -1,5 +1,5 @@
 import { defineApp, ErrorResponse } from "@redwoodjs/sdk/worker";
-import { index, document, prefix } from "@redwoodjs/sdk/router";
+import { index, prefix, render } from "@redwoodjs/sdk/router";
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
 import { setCommonHeaders } from "@/app/headers";
@@ -10,12 +10,12 @@ import { db, setupDb } from "./db";
 import { User } from "@prisma/client";
 export { SessionDurableObject } from "./session/durableObject";
 
-export type Context = {
+export type AppContext = {
   session: Session | null;
   user: User | null;
 };
 
-export default defineApp<Context>([
+export default defineApp<AppContext>([
   setCommonHeaders(),
   async ({ env, ctx, request, headers }) => {
     await setupDb(env);
@@ -45,7 +45,7 @@ export default defineApp<Context>([
       });
     }
   },
-  document(Document, [
+  render<AppContext>(Document, [
     index([
       ({ ctx }) => {
         if (!ctx.user) {
