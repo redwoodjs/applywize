@@ -14,8 +14,7 @@
 
   // Assets configuration
   "assets": {
-    "binding": "ASSETS",
-    "directory": "public"
+    "binding": "ASSETS"
   },
 
   // Observability settings
@@ -51,7 +50,7 @@
     {
       "binding": "DB",
       "database_name": "applywize",
-      "database_id": "c22ad215-c0f0-47cc-a337-eb3a3f292004"
+      "database_id": "9646da8f-0bbf-41ac-be00-fa4de6616675"
     }
   ]
 }

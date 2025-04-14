@@ -32,7 +32,7 @@
     "@radix-ui/react-popover": "^1.1.6",
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
-    "@redwoodjs/sdk": "0.0.32",
+    "@redwoodjs/sdk": "0.0.35",
     "@simplewebauthn/browser": "^13.1.0",
     "@simplewebauthn/server": "^13.1.1",
     "@tailwindcss/vite": "^4.0.17",
@@ -52,8 +52,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.13.13",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "19.0.4",
+    "@types/react-dom": "19.0.4",
     "prisma": "^6.4.1",
     "vite": "^6.1.0",
     "wrangler": "^4.4.0"

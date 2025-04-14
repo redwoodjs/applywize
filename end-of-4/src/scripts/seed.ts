@@ -1,27 +1,19 @@
 import { defineScript } from "@redwoodjs/sdk/worker";
-import { db, setupDb } from "../db";
+import { db, setupDb } from "@/db";
 
 export default defineScript(async ({ env }) => {
   setupDb(env);
 
   await db.$executeRawUnsafe(`\
-    DELETE FROM Application;
-    DELETE FROM Application;
-    DELETE FROM Contact;
-    DELETE FROM Company;
-    DELETE FROM Credential;
     DELETE FROM User;
     DELETE FROM sqlite_sequence;
   `);
 
-  await db.applicationStatus.createMany({
-    data: [
-      { id: 1, status: "New" },
-      { id: 2, status: "Applied" },
-      { id: 3, status: "Interview" },
-      { id: 4, status: "Rejected" },
-      { id: 5, status: "Offer" },
-    ],
+  await db.user.create({
+    data: {
+      id: "1",
+      username: "testuser",
+    },
   });
 
   console.log("🌱 Finished seeding");

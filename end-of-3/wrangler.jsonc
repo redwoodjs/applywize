@@ -14,8 +14,7 @@
 
   // Assets configuration
   "assets": {
-    "binding": "ASSETS",
-    "directory": "public"
+    "binding": "ASSETS"
   },
 
   // Observability settings
@@ -42,7 +41,7 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_classes": ["SessionDurableObject"]
+      "new_sqlite_classes": ["SessionDurableObject"]
     }
   ],
 
@@ -51,7 +50,7 @@
     {
       "binding": "DB",
       "database_name": "applywize",
-      "database_id": "c22ad215-c0f0-47cc-a337-eb3a3f292004"
+      "database_id": "a78b63d7-768a-4479-b579-c870d14ce2bd"
     }
   ]
 }

@@ -1,23 +1,24 @@
 import { defineApp, ErrorResponse } from "@redwoodjs/sdk/worker";
-import { index, layout, prefix } from "@redwoodjs/sdk/router";
+import { route, render, prefix } from "@redwoodjs/sdk/router";
 import { Document } from "@/app/Document";
-import Home from "@/app/pages/Home";
+import { Home } from "@/app/pages/Home";
 import { setCommonHeaders } from "@/app/headers";
 import { userRoutes } from "@/app/pages/user/routes";
 import { sessions, setupSessionStore } from "./session/store";
 import { Session } from "./session/durableObject";
 import { db, setupDb } from "./db";
-import { User } from "@prisma/client";
+import type { User } from "@prisma/client";
+import { env } from "cloudflare:workers";
 export { SessionDurableObject } from "./session/durableObject";
 
-export type Context = {
+export type AppContext = {
   session: Session | null;
   user: User | null;
 };
 
-export default defineApp<Context>([
+export default defineApp([
   setCommonHeaders(),
-  async ({ env, ctx, request, headers }) => {
+  async ({ ctx, request, headers }) => {
     await setupDb(env);
     setupSessionStore(env);
 
@@ -45,8 +46,9 @@ export default defineApp<Context>([
       });
     }
   },
-  layout(Document, [
-    index([
+  render(Document, [
+    route("/", Home),
+    route("/protected", [
       ({ ctx }) => {
         if (!ctx.user) {
           return new Response(null, {
@@ -58,5 +60,7 @@ export default defineApp<Context>([
       Home,
     ]),
     prefix("/user", userRoutes),
+    route("/legal/privacy", () => <h1>Privacy Policy</h1>),
+    route("/legal/terms", () => <h1>Terms of Service</h1>),
   ]),
 ]);

@@ -64,3 +64,6 @@ coverage
 *.temp
 
 .wrangler
+
+script
+tutorial

@@ -1,13 +1,17 @@
-# Passkey Authentication Starter
+# Standard RedwoodSDK Starter
 
-This starter provides a RedwoodJS-based passkey authentication implementation using WebAuthn. It allows password-less authentication leveraging built-in device authenticators and services such as Google Passkeys or 1Password.
+This "standard starter" is the recommended implementation for RedwoodSDK. You get a Typescript project with:
+
+- Vite
+- database (Prisma via D1)
+- Session Management (via DurableObjects)
+- Passkey authentication (Webauthn)
+- Storage (via R2)
 
 ## Creating your project
 
-Create your new project:
-
 ```shell
-npx degit redwoodjs/sdk/starters/passkey-auth my-project-name
+npx degit redwoodjs/sdk/starters/standard my-project-name
 cd my-project-name
 pnpm install
 ```
@@ -18,7 +22,7 @@ pnpm install
 pnpm dev
 ```
 
-Point your browser to the URL displayed in the terminal (e.g. `http://localhost:2332/`).
+Point your browser to the URL displayed in the terminal (e.g. `http://localhost:5173/`). You should see a "Hello World" message in your browser.
 
 ## Deploying your app
 
@@ -48,6 +52,18 @@ Copy the database ID provided and paste it into your project's `wrangler.jsonc` 
 }
 ```
 
+### Setting up WebAuthn Relying Party ID (`RP_ID`)
+
+For production, set your domain as the `RP_ID` via Cloudflare secrets:
+
+```shell
+wrangler secret put RP_ID
+```
+
+When prompted, enter your production domain (e.g., `my-app.example.com`).
+
+Note: The RP_ID must be a valid domain that matches your application's origin. For security reasons, WebAuthn will not work if these don't match.
+
 ### Setting up Session Secret Key
 
 For production, generate a strong SECRET_KEY for signing session IDs. You can generate a secure random key using OpenSSL:
@@ -64,18 +80,6 @@ wrangler secret put SECRET_KEY
 ```
 
 Never use the same secret key for development and production environments, and avoid committing your secret keys to version control.
-
-### Setting up WebAuthn Relying Party ID (`RP_ID`)
-
-For production, set your domain as the `RP_ID` via Cloudflare secrets:
-
-```shell
-wrangler secret put RP_ID
-```
-
-When prompted, enter your production domain (e.g., `my-app.example.com`).
-
-Note: The RP_ID must be a valid domain that matches your application's origin. For security reasons, WebAuthn will not work if these don't match.
 
 ### Setting up Cloudflare Turnstile (Bot Protection)
 
@@ -111,10 +115,10 @@ Authentication uses credential IDs from the authenticator instead of usernames o
 
 ## Bot Protection
 
-Registration is protected using Cloudflare Turnstile to prevent automated bot registrations, closing potential security gaps between detection and protection.
+Registration is protected using [Cloudflare Turnstile](https://www.cloudflare.com/application-services/products/turnstile/) to prevent automated bot registrations - while Cloudflare's built in bot detection will identify and block malicious patterns over time, Turnstile provides immediate verification before registration to prevent bot registrations from the start.
 
 ## Further Reading
 
-- [RedwoodJS Documentation](https://redwoodjs.com)
+- [RedwoodSDK Documentation](https://docs.rwsdk.com/)
 - [Cloudflare Workers Secrets](https://developers.cloudflare.com/workers/runtime-apis/secrets/)
 - [Cloudflare Turnstile](https://developers.cloudflare.com/turnstile/)

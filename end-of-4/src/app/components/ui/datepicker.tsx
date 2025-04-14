@@ -4,7 +4,7 @@ import * as React from "react"
 import { format } from "date-fns"
 import { Calendar as CalendarIcon } from "lucide-react"
 
-import { cn } from "@/app/lib/utils"
+import { cn } from "@/lib/utils"
 import { Button } from "@/app/components/ui/button"
 import { Calendar } from "@/app/components/ui/calendar"
 import {
@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/app/components/ui/popover"
 
-export function DatePickerDemo() {
+export function DatePicker() {
   const [date, setDate] = React.useState<Date>()
 
   return (

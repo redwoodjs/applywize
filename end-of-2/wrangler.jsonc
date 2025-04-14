@@ -34,14 +34,14 @@
 
   // Environment variables
   "vars": {
-    "APP_NAME": "__change_me__"
+    "APP_NAME": "applywize"
   },
 
   // Migrations configuration
   "migrations": [
     {
       "tag": "v1",
-      "new_classes": ["SessionDurableObject"]
+      "new_sqlite_classes": ["SessionDurableObject"]
     }
   ],
 
@@ -49,8 +49,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "applywize",
-      "database_id": "c22ad215-c0f0-47cc-a337-eb3a3f292004"
+      "database_name": "__change_me__",
+      "database_id": "__change_me__"
     }
   ]
 }
