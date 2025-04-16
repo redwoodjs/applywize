@@ -1,7 +1,7 @@
-const AuthLayout = ({ children }: { children: React.ReactNode }) => {
+const AuthLayout = ({ children }: { children: React.ReactNode}) => {
   return (
-    <div className="bg-bg min-h-screen min-w-screen p-12">
-      <div className="grid grid-cols-2 min-h-[calc(100vh-96px)] rounded-xl border-2 border-[#D6D5C5]">
+    <div className="page-wrapper">
+      <div className="grid grid-cols-2 page">
         <div className="relative center bg-[url('/images/bg.png')] bg-repeat rounded-l-xl">
           <div className="-top-[100px] relative">
             <img src="/images/logo.svg" alt="Apply Wize" className="mx-auto" />
@@ -14,11 +14,11 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className="center bg-white rounded-r-xl relative">
-          <div>{children}</div>
+          {children}
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { AuthLayout };
+export { AuthLayout }

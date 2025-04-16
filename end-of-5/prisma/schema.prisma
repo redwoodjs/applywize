@@ -16,22 +16,24 @@ datasource db {
 }
 
 model Application {
-  id             String            @id @default(uuid())
-  userId         String
-  user           User              @relation(fields: [userId], references: [id])
-  status         ApplicationStatus @relation(fields: [statusId], references: [id])
-  statusId       Int               @default(1)
-  salaryMin      String?
-  salaryMax      String?
-  dateApplied    DateTime?
-  jobTitle       String?
-  jobDescription String?
-  postingUrl     String?
-  createdAt      DateTime          @default(now())
-  updatedAt      DateTime?         @updatedAt
-  archived       Boolean           @default(false)
-  companyId      String
-  company        Company           @relation(fields: [companyId], references: [id])
+  id                  String            @id @default(uuid()) // Application ID (UUID-based)
+  userId              String
+  user                User              @relation(fields: [userId], references: [id])
+  applicationStatusId Int
+  applicationStatus   ApplicationStatus @relation(fields: [applicationStatusId], references: [id])
+  companyId           String
+  company             Company           @relation(fields: [companyId], references: [id])
+  salaryMin           String?
+  salaryMax           String?
+  dateApplied         DateTime?
+  jobTitle            String?
+  jobDescription      String?
+  postingUrl          String?
+  archived            Boolean           @default(false)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@index([id])
 }
 
 model ApplicationStatus {
@@ -41,24 +43,36 @@ model ApplicationStatus {
 }
 
 model Company {
-  id           String        @id @default(uuid())
+  id           String        @id @default(uuid()) // Company ID (UUID-based)
   name         String
   applications Application[]
   contacts     Contact[]
   createdAt    DateTime      @default(now())
-  updatedAt    DateTime?     @updatedAt
+  updatedAt    DateTime      @updatedAt
+
+  @@index([id])
 }
 
 model Contact {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid()) // Contact ID (UUID-based)
   firstName String
   lastName  String
   email     String?
   role      String?
   companyId String?
-  company   Company?  @relation(fields: [companyId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  company   Company? @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
+}
+
+model User {
+  id           String        @id @default(uuid()) // User ID (UUID-based)
+  username     String        @unique
+  createdAt    DateTime      @default(now())
+  applications Application[]
+  credentials  Credential[] // Relationship: One user can have many credentials
 }
 
 model Credential {
@@ -72,13 +86,4 @@ model Credential {
 
   @@index([credentialId])
   @@index([userId])
-}
-
-model User {
-  id           String        @id @default(uuid())
-  username     String        @unique
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime?     @updatedAt
-  applications Application[]
-  credentials  Credential[]
 }

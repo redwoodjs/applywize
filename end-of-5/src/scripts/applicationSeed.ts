@@ -1,5 +1,5 @@
 import { defineScript } from "@redwoodjs/sdk/worker";
-import { db, setupDb } from "../db";
+import { db, setupDb } from "@/db";
 
 export default defineScript(async ({ env }) => {
   setupDb(env);
@@ -9,13 +9,13 @@ export default defineScript(async ({ env }) => {
       data: {
         user: {
           connect: {
-            id: "bf971d31-ee62-4b3d-af0f-b0ae92baf7d9"
+            id: "f8886f0e-fa1a-485a-9239-e066c0672bf9",
           },
         },
-        status: {
+        applicationStatus: {
           connect: {
             id: 1,
-          }
+          },
         },
         company: {
           create: {
@@ -28,7 +28,7 @@ export default defineScript(async ({ env }) => {
                 role: "Hiring Manager",
               },
             },
-          }
+          },
         },
         salaryMin: "100000",
         salaryMax: "120000",
