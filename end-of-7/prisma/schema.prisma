@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+  output          = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Application {
+  id                  String            @id @default(uuid()) // Application ID (UUID-based)
+  userId              String
+  user                User              @relation(fields: [userId], references: [id])
+  applicationStatusId Int
+  applicationStatus   ApplicationStatus @relation(fields: [applicationStatusId], references: [id])
+  companyId           String
+  company             Company           @relation(fields: [companyId], references: [id])
+  salaryMin           String?
+  salaryMax           String?
+  dateApplied         DateTime?
+  jobTitle            String?
+  jobDescription      String?
+  postingUrl          String?
+  archived            Boolean           @default(false)
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+
+  @@index([id])
+}
+
+model ApplicationStatus {
+  id           Int           @id @default(autoincrement())
+  status       String
+  applications Application[]
+}
+
+model Company {
+  id           String        @id @default(uuid()) // Company ID (UUID-based)
+  name         String
+  applications Application[]
+  contacts     Contact[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([id])
+}
+
+model Contact {
+  id        String   @id @default(uuid()) // Contact ID (UUID-based)
+  firstName String
+  lastName  String
+  email     String?
+  role      String?
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id])
+}
+
+model User {
+  id           String        @id @default(uuid()) // User ID (UUID-based)
+  username     String        @unique
+  createdAt    DateTime      @default(now())
+  contacts     Contact[]
+  applications Application[]
+  credentials  Credential[] // Relationship: One user can have many credentials
+}
+
+model Credential {
+  id           String   @id @default(uuid()) // Internal DB ID
+  userId       String   @unique // Each user has one discoverable credential
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  credentialId String   @unique // WebAuthn credential identifier
+  publicKey    Bytes
+  counter      Int      @default(0)
+
+  @@index([credentialId])
+  @@index([userId])
+}
