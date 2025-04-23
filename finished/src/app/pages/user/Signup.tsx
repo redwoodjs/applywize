@@ -2,13 +2,10 @@
 
 import { useState, useTransition } from "react";
 import {
-  startAuthentication,
   startRegistration,
 } from "@simplewebauthn/browser";
 import {
-  finishPasskeyLogin,
   finishPasskeyRegistration,
-  startPasskeyLogin,
   startPasskeyRegistration,
 } from "./functions";
 import { useTurnstile } from "@redwoodjs/sdk/turnstile";
@@ -19,7 +16,7 @@ import { AlertCircle } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
 
 // >>> Replace this with your own Cloudflare Turnstile site key
-const TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
+const TURNSTILE_SITE_KEY = "0x4AAAAAABCpUSmzOt7TgetS";
 
 export function Signup() {
   const [username, setUsername] = useState("");
@@ -35,19 +32,13 @@ export function Signup() {
     // 2. Ask the browser to sign the challenge
     const registration = await startRegistration({ optionsJSON: options });
 
-    const turnstileToken = await turnstile.challenge();
-
     // 3. Give the signed challenge to the worker to finish the registration process
-    const success = await finishPasskeyRegistration(
-      username,
-      registration,
-      turnstileToken,
-    );
+    const success = await finishPasskeyRegistration(username, registration);
 
     if (!success) {
       setResult("Registration failed");
     } else {
-      window.location.href = "/user/login"; // TODO: Was this added to the tutorial?
+      return window.location.href = "/user/login";
     }
   };
 
@@ -73,7 +64,6 @@ export function Signup() {
           </Alert>
         )}
 
-        <div ref={turnstile.ref} />
         <input
           type="text"
           value={username}

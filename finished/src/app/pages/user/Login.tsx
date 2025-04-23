@@ -8,24 +8,20 @@ import {
 } from "@simplewebauthn/browser";
 import {
   finishPasskeyLogin,
-  finishPasskeyRegistration,
   startPasskeyLogin,
-  startPasskeyRegistration,
 } from "./functions";
-import { useTurnstile } from "@redwoodjs/sdk/turnstile";
 import { AuthLayout } from "@/app/layouts/AuthLayout";
 import { Button } from "@/app/components/ui/button";
 import { Alert, AlertTitle } from "@/app/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
 // >>> Replace this with your own Cloudflare Turnstile site key
-const TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
+const TURNSTILE_SITE_KEY = "0x4AAAAAABCpUSmzOt7TgetS";
 
 export function Login() {
   const [username, setUsername] = useState("");
   const [result, setResult] = useState("");
   const [isPending, startTransition] = useTransition();
-  const turnstile = useTurnstile(TURNSTILE_SITE_KEY);
 
   const passkeyLogin = async () => {
     // 1. Get a challenge from the worker
@@ -40,7 +36,7 @@ export function Login() {
     if (!success) {
       setResult("Login failed");
     } else {
-      window.location.href = "/";
+      return window.location.href = "/";
     }
   };
 
@@ -66,7 +62,6 @@ export function Login() {
             Register
           </a>
         </div>
-        <div ref={turnstile.ref} />
         <input
           type="text"
           value={username}
