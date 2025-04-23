@@ -1,28 +1,17 @@
 {
-  // Schema reference
   "$schema": "node_modules/wrangler/config-schema.json",
-
-  // Worker name
   "name": "applywize",
-
-  // Entry point
   "main": "src/worker.tsx",
-
-  // Compatibility settings
   "compatibility_date": "2024-09-23",
-  "compatibility_flags": ["nodejs_compat"],
-
-  // Assets configuration
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "assets": {
     "binding": "ASSETS"
   },
-
-  // Observability settings
   "observability": {
     "enabled": true
   },
-
-  // Durable Objects configuration
   "durable_objects": {
     "bindings": [
       {
@@ -31,21 +20,18 @@
       }
     ]
   },
-
-  // Environment variables
   "vars": {
-    "APP_NAME": "applywize"
+    "APP_NAME": "applywize",
+    "WEBAUTHN_APP_NAME": "applywize"
   },
-
-  // Migrations configuration
   "migrations": [
     {
       "tag": "v1",
-      "new_classes": ["SessionDurableObject"]
+      "new_classes": [
+        "SessionDurableObject"
+      ]
     }
   ],
-
-  // D1 database configuration
   "d1_databases": [
     {
       "binding": "DB",
