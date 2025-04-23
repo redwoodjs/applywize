@@ -33,8 +33,8 @@ importers:
         specifier: ^1.2.0
         version: 1.2.0(@types/react@19.1.2)(react@19.2.0-canary-39cad7af-20250411)
       '@redwoodjs/sdk':
-        specifier: 0.0.68
-        version: 0.0.68(@types/node@22.14.0)(rollup@4.39.0)(typescript@5.8.3)(vite@6.2.5(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(webpack@5.99.6(esbuild@0.25.2))(workerd@1.20250408.0)
+        specifier: 0.0.73
+        version: 0.0.73(@types/node@22.14.0)(rollup@4.39.0)(typescript@5.8.3)(vite@6.2.5(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(webpack@5.99.6(esbuild@0.25.2))(workerd@1.20250408.0)
       '@simplewebauthn/browser':
         specifier: ^13.1.0
         version: 13.1.0
@@ -1112,8 +1112,8 @@ packages:
   '@radix-ui/rect@1.1.1':
     resolution: {integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==}
 
-  '@redwoodjs/sdk@0.0.68':
-    resolution: {integrity: sha512-Awi1CWSvz7ZNqsRcjDVaprTenYY7sslQ1iu8tWQ3pAwVr4wxpX3h3KUbjd3qAY6GDjopnzRQQG12QqsSrBRSKw==}
+  '@redwoodjs/sdk@0.0.73':
+    resolution: {integrity: sha512-iG6poRAMjT3rDlntuIj0uZVMCl54jKEzPiNod/VuxSHdJiXs50XS1JozbEMAA198XbVZ4dDmNUvVFnD3D//OPw==}
     hasBin: true
     peerDependencies:
       vite: ^6.2.5
@@ -3912,7 +3912,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@redwoodjs/sdk@0.0.68(@types/node@22.14.0)(rollup@4.39.0)(typescript@5.8.3)(vite@6.2.5(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(webpack@5.99.6(esbuild@0.25.2))(workerd@1.20250408.0)':
+  '@redwoodjs/sdk@0.0.73(@types/node@22.14.0)(rollup@4.39.0)(typescript@5.8.3)(vite@6.2.5(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(webpack@5.99.6(esbuild@0.25.2))(workerd@1.20250408.0)':
     dependencies:
       '@cloudflare/vite-plugin': 1.0.4(rollup@4.39.0)(vite@6.2.5(@types/node@22.14.0)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3))(workerd@1.20250408.0)(wrangler@4.9.1(@cloudflare/workers-types@4.20250409.0))
       '@cloudflare/workers-types': 4.20250409.0
