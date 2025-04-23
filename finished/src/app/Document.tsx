@@ -1,4 +1,5 @@
 import { TurnstileScript } from "@redwoodjs/sdk/turnstile";
+import styles from "./styles.css?url";
 
 export const Document: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -10,7 +11,7 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
       <title>Applywize</title>
       <TurnstileScript />
       <link rel="preload" href="/src/client.tsx" as="script" />
-      <link rel="stylesheet" href="/src/app/styles.css" />
+      <link rel="stylesheet" href={styles} />
     </head>
     <body>
       <div id="root">{children}</div>
