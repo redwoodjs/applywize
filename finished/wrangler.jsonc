@@ -3,9 +3,7 @@
   "name": "applywize",
   "main": "src/worker.tsx",
   "compatibility_date": "2024-09-23",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS"
   },
@@ -21,22 +19,19 @@
     ]
   },
   "vars": {
-    "APP_NAME": "applywize",
-    "WEBAUTHN_APP_NAME": "applywize"
+    "APP_NAME": "applywize"
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_classes": [
-        "SessionDurableObject"
-      ]
+      "new_sqlite_classes": ["SessionDurableObject"]
     }
   ],
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "applywize",
-      "database_id": "a78b63d7-768a-4479-b579-c870d14ce2bd"
+      "database_name": "__change_me__",
+      "database_id": "__change_me__"
     }
   ]
 }
