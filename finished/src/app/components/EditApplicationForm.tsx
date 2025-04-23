@@ -12,19 +12,19 @@ import { useState } from "react"
 import { Button } from "./ui/button"
 import { DatePicker } from "./ui/DatePicker"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
-import { ApplicationStatus, Contact } from "@prisma/client"
-import { createApplication } from "@/app/pages/applications/actions"
+import { ApplicationStatus, Application, Company, Contact } from "@prisma/client"
+import { updateApplication } from "@/app/pages/applications/actions"
 import { ContactForm } from "@/app/components/ContactForm"
 import { Icon } from "./Icon"
 import { ContactCard } from "./ContactCard"
+import { link } from "../shared/links"
 
-const ApplicationsForm = ({ statuses, contacts }:
-  { statuses: ApplicationStatus[], contacts: Contact[] }) => {
+const EditApplicationForm = ({ statuses, application }:
+  { statuses: ApplicationStatus[], application: Application & { applicationStatus: ApplicationStatus } & { company: Company & { contacts: Contact[] } } }) => {
   const [isContactSheetOpen, setIsContactSheetOpen] = useState(false);
 
   const handleSubmit = async (formData: FormData) => {
-    formData.append("contacts", JSON.stringify(contacts));
-    const result = await createApplication(formData);
+    const result = await updateApplication(formData);
     if (result.success) {
       window.location.href = `/applications`;
     } else {
@@ -42,17 +42,17 @@ const ApplicationsForm = ({ statuses, contacts }:
               <div className="field">
                 <label htmlFor="company">Company Name</label>
                 <p className="input-description">What company caught your eye?</p>
-                <input type="text" id="company" name="company" />
+                <input type="text" id="company" name="company" defaultValue={application?.company?.name ?? ''} />
               </div>
               <div className="field">
                 <label htmlFor="jobTitle">Job Title</label>
                 <p className="input-description">What's the job you're after?</p>
-                <input type="text" id="jobTitle" name="jobTitle" />
+                <input type="text" id="jobTitle" name="jobTitle" defaultValue={application?.jobTitle ?? ''} />
               </div>
               <div className="field">
                 <label htmlFor="jobDescription">Job Description / Requirements</label>
                 <p className="input-description">What are they looking for?</p>
-                <textarea id="jobDescription" name="jobDescription" />
+                <textarea id="jobDescription" name="jobDescription" defaultValue={application?.jobDescription ?? ''} />
               </div>
               <div className="field">
                 <div className="label">Salary Range</div>
@@ -60,23 +60,27 @@ const ApplicationsForm = ({ statuses, contacts }:
                 <div className="flex gap-4">
                   <div className="flex-1 label-inside">
                     <label htmlFor="salaryMin">Min</label>
-                    <input type="text" id="salaryMin" name="salaryMin" />
+                    <input type="text" id="salaryMin" name="salaryMin" defaultValue={application?.salaryMin ?? ''} />
                   </div>
                   <div className="flex-1 label-inside">
                     <label htmlFor="salaryMax">Max</label>
-                    <input type="text" id="salaryMax" name="salaryMax" />
+                    <input type="text" id="salaryMax" name="salaryMax" defaultValue={application?.salaryMax ?? ''} />
                   </div>
                 </div>
               </div>
               <div className="field">
-                <label htmlFor="url">Application URL</label>
+                <label htmlFor="postingUrl">Application URL</label>
                 <p className="input-description">What does the pay look like?</p>
-                <input type="text" id="url" name="url" />
+                <input type="text" id="postingUrl" name="postingUrl" defaultValue={application?.postingUrl ?? ''} />
               </div>
-              <div className="field">
-                  <Button type="submit">
-                    Create
-                  </Button>
+              <div className="field flex items-center gap-4">
+                <input type="hidden" id="id" name="id" defaultValue={application?.id ?? ''} />
+                <Button type="submit">
+                  Update
+                </Button>
+                <Button variant="secondary" asChild>
+                  <a href={link('/applications/:id', { id: application?.id ?? '' })}>Cancel</a>
+                </Button>
               </div>
             </div>
           </div>
@@ -85,12 +89,12 @@ const ApplicationsForm = ({ statuses, contacts }:
           <div>
             <div className="box">
               <label>Application submission date</label>
-              <DatePicker name="dateApplied" />
+              <DatePicker name="dateApplied" defaultValue={application?.dateApplied?.toISOString() ?? ''} />
           </div>
 
           <div className="box">
             <label htmlFor="application-status">Application Status</label>
-            <Select name="statusId">
+            <Select name="statusId" defaultValue={application?.applicationStatus?.id.toString() ?? ''}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a Status" />
               </SelectTrigger>
@@ -105,9 +109,9 @@ const ApplicationsForm = ({ statuses, contacts }:
           <div className="box">
             <h3>Contacts</h3>
             <p className="input-description">Invite your team members to collaborate.</p>
-            {contacts && (
+            {application?.company?.contacts && (
               <ul>
-                {contacts.map((contact) => (
+                {application?.company?.contacts.map((contact) => (
                   <li key={contact.id}><ContactCard contact={contact} /></li>
                 ))}
               </ul>
@@ -122,7 +126,7 @@ const ApplicationsForm = ({ statuses, contacts }:
                   <SheetDescription>
                     Add a Contact to this application.
                   </SheetDescription>
-                  <ContactForm callback={() => setIsContactSheetOpen(false)} />
+                  <ContactForm callback={() => setIsContactSheetOpen(false)} companyId={application?.company?.id ?? ''} />
                 </SheetHeader>
               </SheetContent>
             </Sheet>
@@ -133,4 +137,4 @@ const ApplicationsForm = ({ statuses, contacts }:
   )
 }
 
-export {ApplicationsForm}
+export {EditApplicationForm}

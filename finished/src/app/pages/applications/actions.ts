@@ -50,7 +50,6 @@ export const createApplication = async (formData: FormData) => {
   }
 }
 
-
 export const createContact = async (formData: FormData) => {
   try {
     const { ctx } = requestInfo;
@@ -58,6 +57,8 @@ export const createContact = async (formData: FormData) => {
     if (!ctx.user) {
       throw new Error("User not found");
     }
+
+    const companyId = formData.get("companyId") as string;
 
     await db.contact.create({
       data: {
@@ -70,8 +71,48 @@ export const createContact = async (formData: FormData) => {
             id: ctx.user?.id || "",
           },
         },
+        ...(companyId ? {
+          company: {
+            connect: {
+              id: companyId,
+            },
+          }
+        } : {})
       },
     })
+    return { success: true, error: null }
+  } catch (error) {
+    console.error(error)
+    return { success: false, error: error as Error }
+  }
+}
+
+export const updateApplication = async (formData: FormData) => {
+  try {
+    await db.application.update({
+      where: {
+        id: formData.get("id") as string,
+      },
+      data: {
+        salaryMin: formData.get("salaryMin") as string,
+        salaryMax: formData.get("salaryMax") as string,
+        jobTitle: formData.get("jobTitle") as string,
+        jobDescription: formData.get("jobDescription") as string,
+        postingUrl: formData.get("url") as string,
+        dateApplied: formData.get("dateApplied") as string,
+        company: {
+          update: {
+            name: formData.get("company") as string,
+          },
+        },
+        applicationStatus: {
+          connect: {
+            id: parseInt(formData.get("statusId") as string),
+          },
+        },
+      }
+    })
+
     return { success: true, error: null }
   } catch (error) {
     console.error(error)
