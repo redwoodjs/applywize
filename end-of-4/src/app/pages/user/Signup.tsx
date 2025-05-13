@@ -30,7 +30,7 @@ export function Signup() {
     if (!success) {
       setResult("Registration failed");
     } else {
-      setResult("Registration successful!");
+      window.location.href = link("/user/login");
     }
   };
 
