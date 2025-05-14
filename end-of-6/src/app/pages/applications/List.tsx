@@ -1,9 +1,21 @@
-import { InteriorLayout } from "@/app/layouts/InteriorLayout";
-import { db } from "@/db";
-import { Button } from "@/app/components/ui/button";
 import { ApplicationsTable } from "@/app/components/ApplicationsTable";
 import { Icon } from "@/app/components/Icon";
+import { Button } from "@/app/components/ui/button";
+import { InteriorLayout } from "@/app/layouts/InteriorLayout";
 import { link } from "@/app/shared/links";
+import { Prisma } from "@prisma/client";
+import { db } from "src/db";
+
+export type ApplicationWithRelations = Prisma.ApplicationGetPayload<{
+  include: {
+    status: true;
+    company: {
+      include: {
+        contacts: true;
+      };
+    };
+  };
+}>;
 
 const List = async ({ request }: { request: Request }) => {
   const url = new URL(request.url);
@@ -11,16 +23,16 @@ const List = async ({ request }: { request: Request }) => {
 
   const applications = await db.application.findMany({
     include: {
-      applicationStatus: true,
+      status: true,
       company: {
         include: {
-          contacts: true
-        }
-      }
+          contacts: true,
+        },
+      },
     },
     where: {
-      archived: status === "archived" ? true : false
-    }
+      archived: status === "archived" ? true : false,
+    },
   });
 
   return (
@@ -69,7 +81,7 @@ const List = async ({ request }: { request: Request }) => {
         </div>
       </div>
     </InteriorLayout>
-  )
-}
+  );
+};
 
-export { List }
+export { List };

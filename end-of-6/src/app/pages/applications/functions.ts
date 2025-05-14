@@ -1,7 +1,7 @@
-"use server"
+"use server";
 
-import { db } from "@/db"
-import { requestInfo } from "@redwoodjs/sdk/worker";
+import { requestInfo } from "rwsdk/worker";
+import { db } from "@/db";
 
 export const createApplication = async (formData: FormData) => {
   try {
@@ -18,9 +18,9 @@ export const createApplication = async (formData: FormData) => {
             id: ctx.user.id,
           },
         },
-        applicationStatus: {
+        status: {
           connect: {
-            id: 1,
+            id: parseInt(formData.get("status") as string),
           },
         },
         company: {
@@ -42,12 +42,12 @@ export const createApplication = async (formData: FormData) => {
         jobDescription: formData.get("jobDescription") as string,
         postingUrl: formData.get("url") as string,
         dateApplied: formData.get("dateApplied") as string,
-      }
-    })
+      },
+    });
 
-    return { success: true }
+    return { success: true, error: null };
   } catch (error) {
-    console.error(error)
-    return { success: false, error: error as Error }
+    console.error(error);
+    return { success: false, error: error as Error };
   }
-}
+};
