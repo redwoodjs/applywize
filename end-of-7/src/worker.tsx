@@ -1,5 +1,5 @@
-import { defineApp, ErrorResponse } from "@redwoodjs/sdk/worker";
-import { route, render, prefix, index } from "@redwoodjs/sdk/router";
+import { defineApp, ErrorResponse } from "rwsdk/worker";
+import { route, render, prefix } from "rwsdk/router";
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
 import { setCommonHeaders } from "@/app/headers";
@@ -18,14 +18,14 @@ export type AppContext = {
   user: User | null;
 };
 
-const isAuthenticated = ({ ctx }: { ctx: AppContext}) => {
+const isAuthenticated = ({ ctx }: { ctx: AppContext }) => {
   if (!ctx.user) {
     return new Response(null, {
       status: 302,
       headers: { Location: "/user/login" },
     });
   }
-}
+};
 
 export default defineApp([
   setCommonHeaders(),
@@ -58,7 +58,7 @@ export default defineApp([
     }
   },
   render(Document, [
-    index([ isAuthenticated, Home ]),
+    route("/", [isAuthenticated, Home]),
     prefix("/user", userRoutes),
     route("/legal/privacy", () => <h1>Privacy Policy</h1>),
     route("/legal/terms", () => <h1>Terms of Service</h1>),

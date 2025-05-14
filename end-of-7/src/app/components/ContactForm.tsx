@@ -1,12 +1,9 @@
-"use client";
-
-import { toast } from "sonner"
-import { createContact } from "../pages/applications/actions";
-import { Icon } from "./Icon"
-import { Button } from "./ui/button"
+import { Icon } from "./Icon";
+import { Button } from "./ui/button";
+import { createContact } from "../pages/applications/functions";
+import { toast } from "sonner";
 
 const ContactForm = ({ callback }: { callback: () => void }) => {
-
   const handleSubmit = async (formData: FormData) => {
     const result = await createContact(formData);
     if (result.success) {
@@ -15,7 +12,7 @@ const ContactForm = ({ callback }: { callback: () => void }) => {
     } else {
       toast.error("Error creating contact");
     }
-  }
+  };
 
   return (
     <form action={handleSubmit}>
@@ -42,7 +39,7 @@ const ContactForm = ({ callback }: { callback: () => void }) => {
         </Button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export { ContactForm }
+export { ContactForm };

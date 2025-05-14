@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { Contact } from "@prisma/client"
-import { Avatar, AvatarFallback } from "./ui/avatar"
-import { Icon } from "./Icon"
-import { toast } from "sonner"
-import { deleteContact } from "../pages/applications/actions"
+import { Contact } from "@prisma/client";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Icon } from "./Icon";
+import { deleteContact } from "../pages/applications/functions";
+import { toast } from "sonner";
 
 const ContactCard = ({ contact }: { contact: Contact }) => {
   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -15,34 +15,37 @@ const ContactCard = ({ contact }: { contact: Contact }) => {
     } else {
       toast.success("Contact deleted");
     }
-  }
+  };
 
   return (
     <div className="relative group/card flex items-center gap-4 mb-6">
-      <div className="hidden group-hover/card:block pr-10 absolute top-1 -left-[37px]">
-        <button role="button"
-          className="hover:bg-black cursor-pointer text-white fill-current rounded-full bg-destructive p-1"
+      <div className="pr-5 hidden group-hover/card:block absolute top-2 -left-[37px]">
+        <button
           onClick={(e) => handleDelete(e)}
+          role="button"
+          className="hover:bg-black cursor-pointer text-white fill-current rounded-full bg-destructive p-1"
         >
           <Icon id="close" size={16} />
         </button>
       </div>
       <div>
         <Avatar className="size-10">
-          <AvatarFallback>
-            {contact.firstName.charAt(0)}
-          </AvatarFallback>
+          <AvatarFallback>{contact.firstName.charAt(0)}</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex-1">
-        <p className="text-sm font-medium">{contact.firstName} {contact.lastName}</p>
+        <p className="text-sm font-medium">
+          {contact.firstName} {contact.lastName}
+        </p>
         <p className="text-sm text-zinc-500">{contact.role}</p>
       </div>
       <div>
-        <a href={`mailto:${contact.email}`}><Icon id="email" size={24} /></a>
+        <a href={`mailto:${contact.email}`}>
+          <Icon id="email" size={24} />
+        </a>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export { ContactCard }
+export { ContactCard };

@@ -10,8 +10,10 @@ export type IconName =
 	| "chevron-right"
 	| "chevron-up"
 	| "close"
+	| "edit"
+	| "external-link"
 	| "mail"
 	| "plus"
-	| "slash"
+	| "salary"
 	| "trash"
 	| "view";
