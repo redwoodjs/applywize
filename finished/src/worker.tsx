@@ -1,5 +1,5 @@
-import { defineApp, ErrorResponse } from "@redwoodjs/sdk/worker";
-import { route, render, prefix, index } from "@redwoodjs/sdk/router";
+import { defineApp, ErrorResponse } from "rwsdk/worker";
+import { route, render, prefix } from "rwsdk/router";
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
 import { setCommonHeaders } from "@/app/headers";
@@ -7,7 +7,7 @@ import { userRoutes } from "@/app/pages/user/routes";
 import { sessions, setupSessionStore } from "./session/store";
 import { Session } from "./session/durableObject";
 import { db, setupDb } from "./db";
-import type { Application, User } from "@prisma/client";
+import type { User } from "@prisma/client";
 import { env } from "cloudflare:workers";
 import { List } from "./app/pages/applications/List";
 import { New } from "./app/pages/applications/New";
@@ -20,22 +20,20 @@ export type AppContext = {
   user: User | null;
 };
 
-const isAuthenticated = ({ ctx }: { ctx: AppContext}) => {
+const isAuthenticated = ({ ctx }: { ctx: AppContext }) => {
   if (!ctx.user) {
     return new Response(null, {
       status: 302,
       headers: { Location: "/user/login" },
     });
   }
-}
+};
 
 export default defineApp([
   setCommonHeaders(),
   async ({ ctx, request, headers }) => {
     await setupDb(env);
     setupSessionStore(env);
-
-
 
     try {
       ctx.session = await sessions.load(request);
@@ -60,15 +58,9 @@ export default defineApp([
         },
       });
     }
-
   },
   render(Document, [
-    index([isAuthenticated, () => {
-      return new Response(null, {
-        status: 302,
-        headers: { Location: "/applications" },
-      });
-    }]),
+    route("/", [isAuthenticated, Home]),
     prefix("/user", userRoutes),
     route("/legal/privacy", () => <h1>Privacy Policy</h1>),
     route("/legal/terms", () => <h1>Terms of Service</h1>),
@@ -78,6 +70,5 @@ export default defineApp([
       route("/:id", [isAuthenticated, Details]),
       route("/:id/edit", [isAuthenticated, Edit]),
     ]),
-    route("*", () => <h1>404</h1>),
   ]),
 ]);

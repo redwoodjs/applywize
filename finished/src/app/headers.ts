@@ -1,5 +1,5 @@
-import { RouteMiddleware } from "@redwoodjs/sdk/router";
-import { IS_DEV } from "@redwoodjs/sdk/constants";
+import { RouteMiddleware } from "rwsdk/router";
+import { IS_DEV } from "rwsdk/constants";
 
 export const setCommonHeaders =
   (): RouteMiddleware =>
@@ -27,6 +27,6 @@ export const setCommonHeaders =
     // Defines trusted sources for content loading and script execution:
     headers.set(
       "Content-Security-Policy",
-      `default-src 'self'; script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://applywize.redwoodjs.workers.dev; font-src 'self' https://fonts.gstatic.com; frame-src https://challenges.cloudflare.com; object-src 'none';`
+      `default-src 'self'; script-src 'self' 'nonce-${nonce}' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://challenges.cloudflare.com; object-src 'none';`
     );
   };

@@ -1,8 +1,8 @@
-"use server"
+"use server";
 
-import { db } from "@/db"
+import { requestInfo } from "rwsdk/worker";
+import { db } from "@/db";
 import { Contact } from "@prisma/client";
-import { requestInfo } from "@redwoodjs/sdk/worker";
 
 export const createApplication = async (formData: FormData) => {
   try {
@@ -12,7 +12,9 @@ export const createApplication = async (formData: FormData) => {
       throw new Error("User not found");
     }
 
-    const contacts = JSON.parse(formData.get("contacts") as string) as Contact[];
+    const contacts = JSON.parse(
+      formData.get("contacts") as string
+    ) as Contact[];
 
     await db.application.create({
       data: {
@@ -21,9 +23,9 @@ export const createApplication = async (formData: FormData) => {
             id: ctx.user.id,
           },
         },
-        applicationStatus: {
+        status: {
           connect: {
-            id: 1,
+            id: parseInt(formData.get("status") as string),
           },
         },
         company: {
@@ -40,15 +42,15 @@ export const createApplication = async (formData: FormData) => {
         jobDescription: formData.get("jobDescription") as string,
         postingUrl: formData.get("url") as string,
         dateApplied: formData.get("dateApplied") as string,
-      }
-    })
+      },
+    });
 
-    return { success: true }
+    return { success: true, error: null };
   } catch (error) {
-    console.error(error)
-    return { success: false, error: error as Error }
+    console.error(error);
+    return { success: false, error: error as Error };
   }
-}
+};
 
 export const createContact = async (formData: FormData) => {
   try {
@@ -71,21 +73,51 @@ export const createContact = async (formData: FormData) => {
             id: ctx.user?.id || "",
           },
         },
-        ...(companyId ? {
-          company: {
-            connect: {
-              id: companyId,
-            },
-          }
-        } : {})
+        ...(companyId
+          ? {
+              company: {
+                connect: {
+                  id: companyId,
+                },
+              },
+            }
+          : {}),
       },
-    })
-    return { success: true, error: null }
+    });
+    return { success: true, error: null };
   } catch (error) {
-    console.error(error)
-    return { success: false, error: error as Error }
+    console.error(error);
+    return { success: false, error: error as Error };
   }
-}
+};
+
+export const deleteContact = async (contactId: string) => {
+  try {
+    await db.contact.delete({
+      where: {
+        id: contactId,
+      },
+    });
+    return { success: true, error: null };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: error as Error };
+  }
+};
+
+export const deleteApplication = async (applicationId: string) => {
+  try {
+    await db.application.delete({
+      where: {
+        id: applicationId,
+      },
+    });
+    return { success: true, error: null };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: error as Error };
+  }
+};
 
 export const updateApplication = async (formData: FormData) => {
   try {
@@ -105,45 +137,17 @@ export const updateApplication = async (formData: FormData) => {
             name: formData.get("company") as string,
           },
         },
-        applicationStatus: {
+        status: {
           connect: {
             id: parseInt(formData.get("statusId") as string),
           },
         },
-      }
-    })
-
-    return { success: true, error: null }
-  } catch (error) {
-    console.error(error)
-    return { success: false, error: error as Error }
-  }
-}
-
-export const deleteContact = async (contactId: string) => {
-  try {
-    await db.contact.delete({
-      where: {
-        id: contactId,
-      },
-    })
-    return { success: true, error: null }
-  } catch (error) {
-    console.error(error)
-    return { success: false, error: error as Error }
-  }
-}
-
-export const deleteApplication = async (applicationId: string) => {
-  try {
-    await db.application.delete({
-      where: {
-        id: applicationId,
       },
     });
-    return { success: true }
+
+    return { success: true, error: null };
   } catch (error) {
-    console.error(error)
-    return { success: false, error: error as Error }
+    console.error(error);
+    return { success: false, error: error as Error };
   }
-}
+};

@@ -13,9 +13,7 @@ export type IconName =
 	| "edit"
 	| "external-link"
 	| "mail"
-	| "medical"
 	| "plus"
 	| "salary"
-	| "slash"
 	| "trash"
 	| "view";

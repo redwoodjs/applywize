@@ -1,11 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "applywize",
+  "name": "__change_me__",
   "main": "src/worker.tsx",
   "compatibility_date": "2024-09-23",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "binding": "ASSETS"
   },
@@ -21,22 +19,19 @@
     ]
   },
   "vars": {
-    "APP_NAME": "applywize",
-    "WEBAUTHN_APP_NAME": "applywize"
+    "WEBAUTHN_APP_NAME": "__change_me__"
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": [
-        "SessionDurableObject"
-      ]
+      "new_sqlite_classes": ["SessionDurableObject"]
     }
   ],
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "applywize-linguistic-antlion",
-      "database_id": "e656b4f5-d2a6-4dd4-9605-aca2589288d9"
+      "database_name": "__change_me__",
+      "database_id": "__change_me__"
     }
   ]
 }

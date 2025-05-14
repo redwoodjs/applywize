@@ -17,26 +17,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { ApplicationStatus } from "@prisma/client";
-import { updateApplication } from "@/app/pages/applications/functions";
+import { ApplicationStatus, Contact } from "@prisma/client";
+import { createApplication } from "../pages/applications/functions";
 import { Icon } from "./Icon";
 import { ContactForm } from "./ContactForm";
 import { useState } from "react";
 import { ContactCard } from "./ContactCard";
-import { ApplicationWithRelations } from "../pages/applications/List";
-import { link } from "../shared/links";
 
-const EditApplicationForm = ({
+const ApplicationForm = ({
   statuses,
-  application,
+  contacts,
 }: {
   statuses: ApplicationStatus[];
-  application: ApplicationWithRelations;
+  contacts: Contact[];
 }) => {
   const [isContactSheetOpen, setIsContactSheetOpen] = useState(false);
 
   const handleSubmit = async (formData: FormData) => {
-    const result = await updateApplication(formData);
+    formData.append("contacts", JSON.stringify(contacts));
+    const result = await createApplication(formData);
     if (result.success) {
       window.location.href = `/applications`;
     } else {
@@ -54,33 +53,19 @@ const EditApplicationForm = ({
             <div className="field">
               <label htmlFor="company">Company Name</label>
               <p className="input-description">What company caught your eye?</p>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                defaultValue={application.company.name ?? ""}
-              />
+              <input type="text" id="company" name="company" />
             </div>
             <div className="field">
               <label htmlFor="jobTitle">Job Title</label>
               <p className="input-description">What's the job you're after?</p>
-              <input
-                type="text"
-                id="jobTitle"
-                name="jobTitle"
-                defaultValue={application.jobTitle ?? ""}
-              />
+              <input type="text" id="jobTitle" name="jobTitle" />
             </div>
             <div className="field">
               <label htmlFor="jobDescription">
                 Job Description / Requirements
               </label>
               <p className="input-description">What are they looking for?</p>
-              <textarea
-                id="jobDescription"
-                name="jobDescription"
-                defaultValue={application.jobDescription ?? ""}
-              />
+              <textarea id="jobDescription" name="jobDescription" />
             </div>
             <div className="field">
               <div className="label">Salary Range</div>
@@ -88,51 +73,21 @@ const EditApplicationForm = ({
               <div className="flex gap-4">
                 <div className="flex-1 label-inside">
                   <label htmlFor="salaryMin">Min</label>
-                  <input
-                    type="text"
-                    id="salaryMin"
-                    name="salaryMin"
-                    defaultValue={application.salaryMin ?? ""}
-                  />
+                  <input type="text" id="salaryMin" name="salaryMin" />
                 </div>
                 <div className="flex-1 label-inside">
                   <label htmlFor="salaryMax">Max</label>
-                  <input
-                    type="text"
-                    id="salaryMax"
-                    name="salaryMax"
-                    defaultValue={application.salaryMax ?? ""}
-                  />
+                  <input type="text" id="salaryMax" name="salaryMax" />
                 </div>
               </div>
             </div>
-            <div className="field flex items-center gap-4">
+            <div className="field">
               <label htmlFor="url">Application URL</label>
               <p className="input-description">What does the pay look like?</p>
-              <input
-                type="text"
-                id="postingUrl"
-                name="postingUrl"
-                defaultValue={application.postingUrl ?? ""}
-              />
+              <input type="text" id="url" name="url" />
             </div>
-            <div className="field flex items-center gap-4">
-              <input
-                type="hidden"
-                id="id"
-                name="id"
-                defaultValue={application?.id ?? ""}
-              />
-              <Button role="submit">Update</Button>
-              <Button variant="secondary" asChild>
-                <a
-                  href={link("/applications/:id", {
-                    id: application?.id ?? "",
-                  })}
-                >
-                  Cancel
-                </a>
-              </Button>
+            <div className="field">
+              <Button role="submit">Create</Button>
             </div>
           </div>
         </div>
@@ -141,18 +96,12 @@ const EditApplicationForm = ({
         <div>
           <div className="box">
             <label>Application submission date</label>
-            <DatePicker
-              name="dateApplied"
-              defaultValue={application?.dateApplied?.toISOString() ?? ""}
-            />
+            <DatePicker name="dateApplied" />
           </div>
 
           <div className="box">
             <label htmlFor="application-status">Application Status</label>
-            <Select
-              name="statusId"
-              defaultValue={application?.status?.id.toString() ?? ""}
-            >
+            <Select name="status">
               <SelectTrigger>
                 <SelectValue placeholder="Select a Status" />
               </SelectTrigger>
@@ -172,9 +121,9 @@ const EditApplicationForm = ({
             <p className="input-description">
               Invite your team members to collaborate.
             </p>
-            {application?.company?.contacts && (
+            {contacts && (
               <ul>
-                {application?.company?.contacts.map((contact) => (
+                {contacts.map((contact) => (
                   <li key={contact.id}>
                     <ContactCard contact={contact} />
                   </li>
@@ -195,10 +144,7 @@ const EditApplicationForm = ({
                   <SheetDescription>
                     Add a Contact to this application.
                   </SheetDescription>
-                  <ContactForm
-                    callback={() => setIsContactSheetOpen(false)}
-                    companyId={application?.company?.id ?? ""}
-                  />
+                  <ContactForm callback={() => setIsContactSheetOpen(false)} />
                 </SheetHeader>
               </SheetContent>
             </Sheet>
@@ -209,4 +155,4 @@ const EditApplicationForm = ({
   );
 };
 
-export { EditApplicationForm };
+export { ApplicationForm };

@@ -1,7 +1,7 @@
-import { Header } from "../components/Header"
-import { Toaster } from "@/app/components/ui/sonner"
+import { Header } from "../components/Header";
+import { Toaster } from "@/app/components/ui/sonner";
 
-const InteriorLayout = ({ children }: { children: React.ReactNode}) => {
+const InteriorLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="page-wrapper">
       <main className="page bg-white">
@@ -10,7 +10,7 @@ const InteriorLayout = ({ children }: { children: React.ReactNode}) => {
         <Toaster position="top-right" richColors />
       </main>
     </div>
-  )
-}
+  );
+};
 
-export { InteriorLayout }
+export { InteriorLayout };

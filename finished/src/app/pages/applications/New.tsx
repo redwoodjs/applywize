@@ -1,22 +1,29 @@
-import { ApplicationsForm } from "@/app/components/ApplicationsForm"
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "@/app/components/ui/breadcrumb"
-import { InteriorLayout } from "@/app/layouts/InteriorLayout"
-import { db } from "@/db"
-import { AppContext } from "@/worker"
+import { InteriorLayout } from "@/app/layouts/InteriorLayout";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/app/components/ui/breadcrumb";
+import { ApplicationForm } from "@/app/components/ApplicationForm";
+import { db } from "@/db";
+import { RequestInfo } from "rwsdk/worker";
 
-const New = async ({ ctx }: { ctx: AppContext }) => {
-  const statuses = await db.applicationStatus.findMany()
+const New = async ({ ctx }: RequestInfo) => {
+  const statuses = await db.applicationStatus.findMany();
 
   const contacts = await db.contact.findMany({
     where: {
       companyId: null,
-      userId: ctx.user?.id || ""
-    }
-  })
+      userId: ctx.user?.id || "",
+    },
+  });
 
   return (
     <InteriorLayout>
-      <div className="mb-12 -mt-7 pl-[120px]">
+      <div className="breadcrumbs">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -33,9 +40,9 @@ const New = async ({ ctx }: { ctx: AppContext }) => {
         <h1 className="page-title">New Application</h1>
         <p className="page-description">Create a new application</p>
       </div>
-      <ApplicationsForm statuses={statuses} contacts={contacts} />
+      <ApplicationForm statuses={statuses} contacts={contacts} />
     </InteriorLayout>
-  )
-}
+  );
+};
 
-export { New }
+export { New };
