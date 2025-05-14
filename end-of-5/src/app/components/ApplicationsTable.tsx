@@ -26,19 +26,14 @@ const ApplicationsTable = ({
           <TableHead>Date Applied</TableHead>
           <TableHead>Job Title</TableHead>
           <TableHead>Company</TableHead>
-          <TableCell className="flex items-center gap-2">
-            <Avatar>
-              <AvatarFallback>J</AvatarFallback>
-            </Avatar>
-            John Doe
-          </TableCell>
+          <TableCell>Contact</TableCell>
           <TableHead>Salary Range</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {applications.map((application) => (
-          <TableRow>
+          <TableRow key={application.id}>
             <TableCell>
               <Badge
                 variant={
