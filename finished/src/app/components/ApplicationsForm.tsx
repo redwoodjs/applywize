@@ -96,7 +96,7 @@ const ApplicationsForm = ({ statuses, contacts }:
               </SelectTrigger>
               <SelectContent>
                 {statuses && statuses.map((status,index) => (
-                  <SelectItem key={index} value={status.status}>{status.status}</SelectItem>
+                  <SelectItem key={index} value={status.id.toString()}>{status.status}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

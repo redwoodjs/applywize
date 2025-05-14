@@ -12,6 +12,7 @@ import { env } from "cloudflare:workers";
 import { List } from "./app/pages/applications/List";
 import { New } from "./app/pages/applications/New";
 import { Details } from "./app/pages/applications/Details";
+import { Edit } from "./app/pages/applications/Edit";
 export { SessionDurableObject } from "./session/durableObject";
 
 export type AppContext = {
@@ -62,7 +63,12 @@ export default defineApp([
 
   },
   render(Document, [
-    index([ isAuthenticated, Home ]),
+    index([isAuthenticated, () => {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: "/applications" },
+      });
+    }]),
     prefix("/user", userRoutes),
     route("/legal/privacy", () => <h1>Privacy Policy</h1>),
     route("/legal/terms", () => <h1>Terms of Service</h1>),
@@ -70,6 +76,7 @@ export default defineApp([
       route("/", [isAuthenticated, List]),
       route("/new", [isAuthenticated, New]),
       route("/:id", [isAuthenticated, Details]),
+      route("/:id/edit", [isAuthenticated, Edit]),
     ]),
     route("*", () => <h1>404</h1>),
   ]),

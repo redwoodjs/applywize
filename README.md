@@ -4,7 +4,7 @@
 
 ## Overview
 
-Applywize is a tutorial project designed to teach developers how to use RedwoodSDK. Applywize is a practical job application tracking system that helps job seekers organize their job search process, manage applications, and track contacts.
+[Applywize](https://applywize.app) is a tutorial project designed to teach developers how to use [RedwoodSDK](https://rwsdk.com). Applywize is a practical job application tracking system that helps job seekers organize their job search process, manage applications, and track contacts.
 
 This tutorial follows the principle of "tutorial-driven development" - we've designed the developer experience first, then built the code to support it. By completing this tutorial, you'll learn all the core features of RedwoodSDK while building a modern, useful application.
 
@@ -34,8 +34,8 @@ Applywize is a full-stack application that includes:
 ├── end-of-6/               # Completed code after Lesson 6
 ├── end-of-7/               # Completed code after Lesson 7
 ├── end-of-8/               # Completed code after Lesson 8
-├── end-of-9/               # Completed code after Lesson 9
 ├── figma/                  # Figma design file for reference
+├── finished/               # Completed tutorial
 └── images-for-readme/      # Images used in this README
 ```
 
@@ -81,7 +81,7 @@ The tutorial is divided into 9 lessons:
 
 ### Lesson 5: Jobs List Page
 
-[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/jobs-list) ] | [ CODE ]
+[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/jobs-list) ] | [ [CODE](./end-of-5) ]
 
 - Creating the main jobs page layout
 - Building and styling the jobs table using ShadCN
@@ -90,7 +90,7 @@ The tutorial is divided into 9 lessons:
 
 ### Lesson 6: Job Forms
 
-[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/jobs-form) ] | [ CODE ]
+[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/jobs-form) ] | [ [CODE](./end-of-6) ]
 
 - Creating the new job form with ShadCN Form components
 - Form validation
@@ -99,7 +99,7 @@ The tutorial is divided into 9 lessons:
 
 ### Lesson 7: Contact Management
 
-[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/contacts) ] | [ CODE ]
+[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/contacts) ] | [ [CODE](./end-of-7) ]
 
 - Adding contacts interface
 - Building the contact form with ShadCN components
@@ -108,7 +108,7 @@ The tutorial is divided into 9 lessons:
 
 ### Lesson 8: Job Details
 
-[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/jobs-details) ] | [ CODE ]
+[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/jobs-details) ] | [ [CODE](./end-of-8) ]
 
 - Building the job detail view
 - Implementing edit functionality
@@ -117,7 +117,7 @@ The tutorial is divided into 9 lessons:
 
 ### Lesson 9: Deployment
 
-[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/deploying) ] | [ CODE ]
+[ [DOCS](https://docs.rwsdk.com/tutorial/full-stack-app/deploying) ] | [ [CODE](./finished) ]
 
 - Preparing for production
 - Deploying your application
@@ -127,22 +127,22 @@ The tutorial is divided into 9 lessons:
 
 There are several ways to work through this tutorial:
 
-1. **Follow along step-by-step**: Start from scratch and build the application as you progress through the tutorial.
+1. [**Follow along step-by-step**](https://redwood-sdk-docs.pages.dev/tutorial/full-stack-app/setup/): Start from scratch and build the application as you progress through the tutorial.
 
 2. **Use checkpoint references**: If you get stuck, refer to the `end-of-X` folders to see the completed code at the end of each lesson.
 
-3. **Use the finished product**: The `end-of-9` folder contains the complete, finished application with all features implemented.
+3. **Use the finished product**: The [`finished` folder](./finished) contains the complete, finished application with all features implemented.
 
-4. **Design reference**: The Figma files in the `figma` folder provide the complete UI design if you want to match the intended look and feel.
+4. **Design reference**: The [Figma files in the `figma` folder](./figma) provide the complete UI design if you want to match the intended look and feel.
 
 ## Prerequisites
 
 Before starting this tutorial, you should have:
 
 - Basic knowledge of JavaScript, React, and modern web development
-- Node.js and npm installed on your machine
+- Node.js and pnpm installed on your machine
 - A code editor of your choice
-- A Cloudflare account (for deployment)
+- A [Cloudflare](https://cloudflare.com) account (for deployment)
 
 ## Getting Started
 

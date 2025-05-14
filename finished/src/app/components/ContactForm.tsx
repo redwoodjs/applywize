@@ -5,9 +5,10 @@ import { createContact } from "../pages/applications/actions";
 import { Icon } from "./Icon"
 import { Button } from "./ui/button"
 
-const ContactForm = ({ callback }: { callback: () => void }) => {
+const ContactForm = ({ callback, companyId = '' }: { callback: () => void, companyId?: string }) => {
 
   const handleSubmit = async (formData: FormData) => {
+    formData.append("companyId", companyId);
     const result = await createContact(formData);
     if (result.success) {
       toast.success("Contact created successfully");

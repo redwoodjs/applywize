@@ -10,4 +10,5 @@ export const link = defineLinks([
   "/applications",
   "/applications/new",
   "/applications/:id",
+  "/applications/:id/edit",
 ]);

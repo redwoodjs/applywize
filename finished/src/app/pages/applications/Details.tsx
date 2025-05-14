@@ -8,6 +8,7 @@ import { RequestInfo } from "@redwoodjs/sdk/worker"
 import { VariantProps } from "class-variance-authority"
 import { ContactCard } from "@/app/components/ContactCard"
 import { DeleteApplicationButton } from "@/app/components/DeleteApplicationButton"
+import { link } from "@/app/shared/links"
 
 const Details = async ({ params, ctx }: RequestInfo) => {
   const application = await db.application.findUnique({
@@ -23,6 +24,13 @@ const Details = async ({ params, ctx }: RequestInfo) => {
       },
     },
   })
+
+  if (!application) {
+    return new Response(null, {
+      status: 302,
+      headers: { Location: "/applications" },
+    });
+  }
 
   return (
     <InteriorLayout>
@@ -58,7 +66,11 @@ const Details = async ({ params, ctx }: RequestInfo) => {
           <div>
             <div className="mb-12">{application?.jobDescription}</div>
             <div className="flex items-center gap-5">
-              <Button variant="secondary"><Icon id="edit" size={16} /> Edit</Button>
+              <Button variant="secondary" asChild>
+                <a href={link('/applications/:id/edit', { id: application?.id })}>
+                  <Icon id="edit" size={16} /> Edit
+                </a>
+              </Button>
               <DeleteApplicationButton applicationId={application?.id as string} />
             </div>
           </div>
