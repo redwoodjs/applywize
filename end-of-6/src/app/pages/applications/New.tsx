@@ -1,10 +1,17 @@
-import { ApplicationsForm } from "@/app/components/ApplicationsForm"
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from "@/app/components/ui/breadcrumb"
-import { InteriorLayout } from "@/app/layouts/InteriorLayout"
-import { db } from "@/db"
+import { InteriorLayout } from "@/app/layouts/InteriorLayout";
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/app/components/ui/breadcrumb";
+import { ApplicationForm } from "@/app/components/ApplicationForm";
+import { db } from "@/db";
 
 const New = async () => {
-  const statuses = await db.applicationStatus.findMany()
+  const statuses = await db.applicationStatus.findMany();
 
   return (
     <InteriorLayout>
@@ -25,9 +32,9 @@ const New = async () => {
         <h1 className="page-title">New Application</h1>
         <p className="page-description">Create a new application</p>
       </div>
-      <ApplicationsForm statuses={statuses} />
+      <ApplicationForm statuses={statuses} />
     </InteriorLayout>
-  )
-}
+  );
+};
 
-export { New }
+export { New };

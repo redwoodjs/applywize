@@ -1,4 +1,4 @@
-import { defineScript } from "@redwoodjs/sdk/worker";
+import { defineScript } from "rwsdk/worker";
 import { db, setupDb } from "@/db";
 
 export default defineScript(async ({ env }) => {
@@ -7,12 +7,18 @@ export default defineScript(async ({ env }) => {
   const createApplication = async () => {
     await db.application.create({
       data: {
+        salaryMin: "100000",
+        salaryMax: "120000",
+        jobTitle: "Software Engineer",
+        jobDescription: "Software Engineer",
+        postingUrl: "https://redwoodjs.com",
+        dateApplied: new Date(),
         user: {
           connect: {
-            id: "f8886f0e-fa1a-485a-9239-e066c0672bf9",
+            id: "a1d56217-a3c6-4786-8302-434ef8247957",
           },
         },
-        applicationStatus: {
+        status: {
           connect: {
             id: 1,
           },
@@ -30,13 +36,7 @@ export default defineScript(async ({ env }) => {
             },
           },
         },
-        salaryMin: "100000",
-        salaryMax: "120000",
-        jobTitle: "Software Engineer",
-        jobDescription: "Software Engineer",
-        postingUrl: "https://redwoodjs.com",
-        dateApplied: new Date(),
-      }
+      },
     });
   };
 
