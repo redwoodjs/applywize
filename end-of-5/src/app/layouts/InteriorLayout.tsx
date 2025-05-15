@@ -1,6 +1,6 @@
-import { Header } from "../components/Header"
+import { Header } from "../components/Header";
 
-const InteriorLayout = ({ children }: { children: React.ReactNode}) => {
+const InteriorLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="page-wrapper">
       <main className="page bg-white">
@@ -8,7 +8,7 @@ const InteriorLayout = ({ children }: { children: React.ReactNode}) => {
         {children}
       </main>
     </div>
-  )
-}
+  );
+};
 
-export { InteriorLayout }
+export { InteriorLayout };

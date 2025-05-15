@@ -1,60 +1,77 @@
-import { Application, ApplicationStatus, Company, Contact } from "@prisma/client"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
-import { Avatar, AvatarFallback } from "./ui/avatar"
-import { Badge } from "./ui/badge"
-import { Icon } from "./Icon"
-import type { badgeVariants } from "./ui/badge"
-import { VariantProps } from "class-variance-authority"
-import { link } from "../shared/links"
+import { Icon } from "./Icon";
+import { Avatar, AvatarFallback } from "./ui/avatar";
+import { Badge, badgeVariants } from "./ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import { ApplicationWithRelations } from "../pages/applications/List";
+import { VariantProps } from "class-variance-authority";
+import { link } from "../shared/links";
 
-const ApplicationsTable = ({ applications }: {
-  applications: (Application & {
-    applicationStatus: ApplicationStatus,
-    company: Company & {
-      contacts: Contact[]
-    },
-  })[]
+const ApplicationsTable = ({
+  applications,
+}: {
+  applications: ApplicationWithRelations[];
 }) => {
   return (
     <Table>
       <TableHeader>
-        <TableHead className="w-[100px]">Status</TableHead>
-        <TableHead>Date Applied</TableHead>
-        <TableHead>Job Title</TableHead>
-        <TableHead>Company</TableHead>
-        <TableHead>Contact</TableHead>
-        <TableHead>Salary Range</TableHead>
-        <TableHead></TableHead>
+        <TableRow>
+          <TableHead className="w-[100px]">Status</TableHead>
+          <TableHead>Date Applied</TableHead>
+          <TableHead>Job Title</TableHead>
+          <TableHead>Company</TableHead>
+          <TableCell className="flex items-center gap-2">
+            <Avatar>
+              <AvatarFallback>J</AvatarFallback>
+            </Avatar>
+            John Doe
+          </TableCell>
+          <TableHead>Salary Range</TableHead>
+          <TableHead></TableHead>
+        </TableRow>
       </TableHeader>
       <TableBody>
-        {applications.map(application => (
-        <TableRow>
-          <TableCell>
-              <Badge variant={application.applicationStatus?.status.toLowerCase() as VariantProps<typeof badgeVariants>['variant']}>
-                {application.applicationStatus?.status}
-              </Badge>
-          </TableCell>
+        {applications.map((application) => (
+          <TableRow>
             <TableCell>
-              {application.dateApplied?.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
+              <Badge
+                variant={
+                  application.status.status.toLowerCase() as VariantProps<
+                    typeof badgeVariants
+                  >["variant"]
+                }
+              >
+                {application.status.status}
+              </Badge>
+            </TableCell>
+            <TableCell>
+              {application.dateApplied?.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </TableCell>
-            <TableCell>
-              {application.jobTitle}
-            </TableCell>
-            <TableCell>
-              {application.company.name}
-            </TableCell>
+            <TableCell>{application.jobTitle}</TableCell>
+            <TableCell>{application.company.name}</TableCell>
             <TableCell className="flex items-center gap-2">
               <Avatar>
-                <AvatarFallback>{application.company.contacts[0].firstName.charAt(0).toUpperCase()}</AvatarFallback>
+                <AvatarFallback>
+                  {application.company.contacts[0].firstName
+                    .charAt(0)
+                    .toUpperCase()}
+                </AvatarFallback>
               </Avatar>
-              {application.company.contacts[0].firstName} {application.company.contacts[0].lastName}
+              {application.company.contacts[0].firstName}{" "}
+              {application.company.contacts[0].lastName}
             </TableCell>
             <TableCell>
-              ${application.salaryMin}-${application.salaryMax}
+              {application.salaryMin}-{application.salaryMax}
             </TableCell>
             <TableCell>
               <a href={link("/applications/:id", { id: application.id })}>
@@ -65,7 +82,7 @@ const ApplicationsTable = ({ applications }: {
         ))}
       </TableBody>
     </Table>
-  )
-}
+  );
+};
 
-export { ApplicationsTable }
+export { ApplicationsTable };

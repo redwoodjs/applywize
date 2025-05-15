@@ -8,6 +8,7 @@ generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
   output          = "../node_modules/.prisma/client"
+
 }
 
 datasource db {
@@ -62,23 +63,23 @@ model Contact {
 }
 
 model Credential {
-  id           String   @id @default(uuid()) // Internal DB ID
-  userId       String   @unique // Each user has one discoverable credential
-  user         User     @relation(fields: [userId], references: [id])
-  createdAt    DateTime @default(now())
-  credentialId String   @unique // WebAuthn credential identifier
-  publicKey    Bytes
-  counter      Int      @default(0)
+  id            String   @id @default(uuid()) // Internal DB ID
+  userId        String   @unique // Every credential is linked to a specific user
+  user          User     @relation(fields: [userId], references: [id])
+  createdAt     DateTime @default(now())
+  credentialId  String   @unique // WebAuthn credential identifier
+  publicKey     Bytes
+  counter       Int      @default(0)
 
   @@index([credentialId])
   @@index([userId])
 }
 
 model User {
-  id           String        @id @default(uuid())
-  username     String        @unique
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime?     @updatedAt
-  applications Application[]
-  credentials  Credential[]
+  id          String      @id @default(uuid()) // User ID (UUID-based)
+  username    String      @unique
+  createdAt   DateTime    @default(now())
+
+  applications       Application[]
+  credentials Credential[] // Relationship: One user can have many credentials
 }
