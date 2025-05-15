@@ -24,6 +24,18 @@ export const setCommonHeaders =
       "geolocation=(), microphone=(), camera=()"
     );
 
+    // Forces browser to use the declared content-type instead of trying to guess/sniff it
+    headers.set("X-Content-Type-Options", "nosniff");
+
+    // Stops browsers from sending the referring webpage URL in HTTP headers
+    headers.set("Referrer-Policy", "no-referrer");
+
+    // Explicitly disables access to specific browser features/APIs
+    headers.set(
+      "Permissions-Policy",
+      "geolocation=(), microphone=(), camera=()"
+    );
+
     // Defines trusted sources for content loading and script execution:
     headers.set(
       "Content-Security-Policy",
