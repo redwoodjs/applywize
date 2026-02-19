@@ -56,8 +56,8 @@
     "tw-animate-css": "^1.2.9",
     "typescript": "^5.8.3",
     "vibe-rules": "^0.2.31",
-    "vite": "^6.2.6",
-    "wrangler": "^4.14.1"
+    "vite": "^6.4.1",
+    "wrangler": "^4.59.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
